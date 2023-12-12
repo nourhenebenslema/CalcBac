@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bac sport</title>
+    <link rel="stylesheet" href="front.css" />
+</head>
+
+<body>
+
+    <header>
+        <h1>Sport</h1>
+        <a href="index.html" class="back">&laquo; Home</a>
+      </header>
+
+
+    <form onsubmit="calculerResultat(event)">
+        <fieldset class="form-style">
+
+            <label class="label-title">donnez les notes des matiéres ce dessous</label></br>
+            <div>
+                <div class="c"><label>Mathématiques :</label>
+                    <input type="number" id="math" min="0" max="20" step="0.01" required>
+                </div>
+                <div class="c"><label>Physique :</label>
+                    <input type="number" id="phy" min="0" max="20" step="0.01" required>
+                </div>
+
+                <div class="c"><label>Sciences :</label> <input type="number" id="science" min="0" max="20" step="0.01" required>
+                </div>
+                <div class="c"><label>Informatique :</label> <input type="number" id="info" min="0" max="20"
+                        step="0.01" required>
+                </div>
+                <div class="c"><label>Philosophie :</label> <input type="number" id="phil" min="0" max="20"
+                        step="0.01" required>
+                </div>
+                <div class="c"><label>Arabe :</label> <input type="number" id="ar" min="0" max="20" step="0.01" required>
+                </div>
+                <div class="c"><label>Français :</label> <input type="number" id="fr" min="0" max="20" step="0.01" required>
+                </div>
+                <div class="c"><label>Anglais :</label> <input type="number" id="an" min="0" max="20" step="0.01" required>
+                </div>
+                <div class="c"><label>Education physique :</label> <input type="number" id="sp" min="0" max="20"
+                        step="0.01" required>
+                </div>
+                <div class="c"><label>Spécialité sportive :</label> <input type="number" id="spec" min="0" max="20"
+                    step="0.01" required>
+            </div>
+            <div class="c"><label>Histoire-Géographie :</label> <input type="number" id="histoiregeo" min="0" max="20"
+                step="0.01" required>
+        </div>
+                <div class="c"><label>Option :</label> <input type="number" id="opt" min="0" max="20" step="0.01" required>
+                </div>
+            </div>
+            <div class="c2"><input type="submit" value="calculer"></div>
+            <div class="c2"><input type="reset" value="delete"></div>
+        </fieldset>
+    </form>
+    <table id="mention-color" style="text-align:center" >
+		<thead>
+			<tr>
+                <th id="res"></th>
+                <th id="moy"></th>
+                <th id="men"></th>
+                <th id="sc"></th>
+            </tr>
+		</thead>
+		<tbody>
+			<tr>
+                <td id="resultat" ></td>
+                <td id="moyenne"> </td>
+                <td id="mention"></td>
+                <td id="scoreNet"></td>
+            
+            </tr>
+		</tbody>
+	</table>
+    <script>
+        function calculerResultat(event) {
+            event.preventDefault();
+            var x = parseFloat(document.getElementById("math").value) * 1 +
+                parseFloat(document.getElementById("phy").value) * 1 +
+                parseFloat(document.getElementById("science").value) * 1.5 +
+                parseFloat(document.getElementById("info").value) * 1 +
+                parseFloat(document.getElementById("phil").value) * 1 +
+                parseFloat(document.getElementById("ar").value) * 1 +
+                parseFloat(document.getElementById("fr").value) * 1 +
+                parseFloat(document.getElementById("histoiregeo").value) * 1 +
+                parseFloat(document.getElementById("spec").value) * 6 +
+                parseFloat(document.getElementById("an").value) * 1;
+
+            var n = 15.5;
+            var moyenne = x / n ;
+            document.getElementById("sp").value >10 ? moyenne = moyenne + (( document.getElementById("sp").value - 10)/20) : moyenne = moyenne
+            document.getElementById("opt").value >10 ? moyenne = moyenne + (( document.getElementById("opt").value - 10)/20) : moyenne = moyenne
+            var resultat;
+            var mention="";
+
+            if (moyenne >= 10 ) {
+                resultat = "Admis";
+                if (moyenne >= 10 && moyenne < 12) {
+                    mention = "Passable";
+                }
+                else
+                    if (moyenne >= 12 && moyenne < 14) {
+                        mention = "Assez bien";
+                    }
+                    else
+                        if (moyenne >= 14 && moyenne < 16) {
+                            mention = "Bien";
+                        }
+                        else
+                            mention = "Trés bien";
+            }
+            else
+                if (moyenne >= 7 && moyenne < 10) {
+                    resultat = "Contrôle";
+                }
+                else
+                    resultat = "Refusé";
+            var scoreNet = parseFloat(document.getElementById("science").value) +
+                parseFloat(document.getElementById("math").value) +
+                parseFloat(document.getElementById("phy").value) +
+                parseFloat(document.getElementById("fr").value) +
+                parseFloat(document.getElementById("an").value) +
+                moyenne * 5;
+            document.getElementById("resultat").textContent = `${resultat}`;
+            document.getElementById("moyenne").textContent = `${moyenne.toFixed(2)}`;
+            if (mention !== "") {
+                document.getElementById("mention").textContent = `${mention}`;
+                document.getElementById("scoreNet").textContent = `${scoreNet.toFixed(2)}`;
+            }else {
+                document.getElementById("mention").textContent = "-";
+                document.getElementById("scoreNet").textContent ="-";
+            }
+        
+            
+           // header table results
+           document.getElementById("res").textContent = `Résultat`
+           document.getElementById("moy").textContent = `Moyenne`
+           document.getElementById("men").textContent = `Mention`;
+          document.getElementById("sc").textContent = `Score`;
+
+
+          mention=="Passable"?document.getElementById("mention-color").style.backgroundColor="white"
+            :mention=="Assez bien"?document.getElementById("mention-color").style.backgroundColor="rgb(165, 229, 163)"
+            :mention=="Bien"?document.getElementById("mention-color").style.backgroundColor="#00aaff"
+            :mention=="Trés bien"?document.getElementById("mention-color").style.backgroundColor="#17cb11"
+            :resultat=="Contrôle"?document.getElementById("mention-color").style.backgroundColor="orange"
+            :document.getElementById("mention-color").style.backgroundColor="red"
+        }
+        
+
+    </script>
+</body>
+
+</html>

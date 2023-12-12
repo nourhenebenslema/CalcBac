@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CalcBac</title>
+    <link rel="stylesheet" href="front.css" />
+  </head>
+
+  <body>
+    <div class="t"><h1>Bienvenue sur CalcBac !</h1></div>
+    <div class="t"><h2>La calculatrice Bac en ligne</h2></div>
+    <div class="vide"></div>
+    <div class="t">
+      <h3>Calculez votre moyenne, score et voyez votre résultat !</h3>
+    </div>
+
+
+
+    <div class="form-style">
+      <form onsubmit="redirectSection(event)">
+        <fieldset>
+          <legend><span class="number"></span> Sélectionnez votre section de Bac:</legend>
+          <select id="section" name="section">
+            <option value="math">Mathématiques</option>
+            <option value="science">Sciences expérimentales</option>
+            <option value="tech">Sciences techniques</option>
+            <option value="info">Sciences informatiques</option>
+            <option value="eco">Sciences économiques et gestion</option>
+            <option value="sport">Sport</option>
+            <option value="lettre">Lettres</option>
+          </select>
+        </fieldset>
+        <fieldset>
+          <input type="submit" value="Choisir" />
+        </fieldset>
+      </form>
+    </div>
+
+    <script>
+      function redirectSection(event) {
+        event.preventDefault();
+        var section = document.getElementById("section").value;
+        if (section) {
+          window.location.href = section + ".html";
+        }
+      }
+    </script>
+  </body>
+</html>
